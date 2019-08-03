@@ -1,0 +1,29 @@
+.card-image {
+    width: 50px !important;
+    height: 75px !important;
+    margin: 10px;
+}
+
+.card-layout {
+    border: 1px solid lightgray;
+    background: lightgray;
+    min-width: 175px;
+    margin: 20px;
+}
+.card-layout:hover {
+    border: 1px solid orange;
+    background: orange;
+    min-width: 175px;
+    margin: 20px;
+}
+.card-content {
+    background: white;
+}
+.card-price {
+    color: red;
+    padding: 10px;
+}
+
+.card-detail {
+    padding: 10px;
+}
