@@ -1,43 +1,38 @@
 import React from "react";
-import axios from "axios";
 import Flexbox from "flexbox-react";
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
+import { connect } from "react-redux";
 
+import Header from "./header";
 import MobileCard from "./mobileCard";
-
+import { getAllMobileDetails, setSelectedMobile } from "../action";
 
 class DashBoard extends React.Component {
-    state = {
-        mobileInfo: []
-    }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/listAllMobiles").then(resp => {
-            this.setState({ mobileInfo: resp.data })
-            console.log(resp.data);
-        })
+        this.props.getAllMobileDetails();
     }
 
     render() {
         return (
             <Flexbox flexDirection="column">
-                <AppBar position="static" color="primary">
-                    <Toolbar>
-                        <IconButton><MenuIcon /></IconButton>
-                        {"Mobile Finder"}
-                    </Toolbar>
-                </AppBar>
-                <Flexbox flexWrap="wrap" justifyContent="space-around" alignItems="space-around">
-                    {Array.isArray(this.state.mobileInfo) ? this.state.mobileInfo.map(data =>
+                <Header />
+                <Flexbox flexWrap="wrap" justifyContent="space-around" >
+                    {Array.isArray(this.props.mobileList) ? this.props.mobileList.map(data =>
                         <MobileCard mobile={data} key={data.serial_id} />
                     ) : <Flexbox />}
                 </Flexbox>
+                {/* <a href="https://boxnovel.com/novel/the-favored-son-of-heaven/chapter-24/">click to go to boxnovel</a> */}
             </Flexbox>
         )
     }
 }
+const mapStateToProps = state => ({
+    mobileList: state.dashboard.mobileList
+});
 
-export default DashBoard;
+const mapActionToProps = {
+    getAllMobileDetails,
+    setSelectedMobile
+}
+
+export default connect(mapStateToProps, mapActionToProps)(DashBoard);

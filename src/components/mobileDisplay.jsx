@@ -1,19 +1,26 @@
 import React from "react";
-
-import { AppBar, Toolbar, IconButton } from "@material-ui/core";
-import MenuIcon from '@material-ui/icons/Menu';
 import Flexbox from "flexbox-react";
 
-export default function MobileDisplay() {
+import Header from "./header";
+import { connect } from "react-redux";
+
+export function MobileDisplay(props) {
+    console.log(props);
     return (
         <Flexbox flexDirection="column">
-            <AppBar position="static" color="primary">
-                <Toolbar>
-                    <IconButton><MenuIcon /></IconButton>
-                    {"Mobile Finder"}
-                </Toolbar>
-            </AppBar>
+            <Header />
             Mobile Details
+            <Flexbox>{props.selectedMobile.name}</Flexbox>
         </Flexbox>
     )
 }
+
+const mapStateToProps = state => ({
+    selectedMobile: state.dashboard.selectedMobile
+});
+
+const mapActionToProps = {
+
+};
+
+export default connect(mapStateToProps, mapActionToProps)(MobileDisplay);
